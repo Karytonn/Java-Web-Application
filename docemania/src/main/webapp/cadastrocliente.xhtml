@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="" library="" />
+	<title>NewTec</title>
+</h:head>
+	<h:body>
+		
+		
+		<ui:composition template="template/template.xhtml">
+		<ui:define name="center">
+		
+			<h:form id="cad_cliente">
+				
+				<p:fieldset legend="Cadastro Cliente" style="margin-bottom:20px; margin-top:20px">
+				
+				<p:messages autoUpdate="true" />
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel>Nome</p:outputLabel>
+					<p:inputText label="Campo/Nome" value="#{ClienteMB.bean.nomePessoa}" required="true" requiredMessage="Insira o campo (Nome)"/>
+					<p:outputLabel>Telefone</p:outputLabel>
+					<p:inputText label="Campo/Telefone" value="#{ClienteMB.bean.telefone}" required="true" requiredMessage="Insira o campo (Telefone)"/>
+					<p:outputLabel>Codigo Cliente</p:outputLabel>
+					<p:inputText label="Campo/Codigo" value="#{ClienteMB.bean.codCliente}" required="true" requiredMessage="Insira o campo (Codigo Cliente)"/>
+					<p:outputLabel>Data de cadasto</p:outputLabel>
+					<p:calendar label="Data/Cadastro" value="#{ClienteMB.bean.dataCadastro}" required="true" requiredMessage="Insira o campo (Data de Cadastro)"/>
+				</p:panelGrid>
+				
+				<br></br>
+				
+				<p:panelGrid columns="3">
+
+					<p:commandButton value="Cadastrar" action="#{ClienteMB.cadastrar}"
+						update="cad_cliente" rendered="#{!ClienteMB.startUpdate}" />
+
+					<p:commandButton value="Delete" action="#{ClienteMB.delete}"
+						update="cad_cliente" rendered="#{ClienteMB.startUpdate}" />
+
+					<p:commandButton value="Update" action="#{ClienteMB.update}"
+						update="cad_cliente" rendered="#{ClienteMB.startUpdate}" />
+
+					<p:commandButton value="Cancelar" action="#{ClienteMB.init}"
+						update="cad_cliente" rendered="#{ClienteMB.startUpdate}" />
+
+				</p:panelGrid>
+				
+				<br></br>
+				
+				<p:dataTable var="cliente" value="#{ClienteMB.clientes}"
+					selectionMode="single" selection="#{ClienteMB.update}"
+					rowKey="#{cliente.idPessoa}">
+
+					<p:ajax event="rowSelect" listener="#{ClienteMB.ativaUpdate}"
+						update=":cad_cliente" />
+
+					<p:column headerText="Nome">#{cliente.nomePessoa}</p:column>
+					<p:column headerText="Nome">#{cliente.telefone}</p:column>
+					<p:column headerText="Codigo">#{cliente.codCliente}</p:column>
+					<p:column headerText="Data de Cadastro">#{cliente.dataCadastro}</p:column>
+				</p:dataTable>
+				
+				</p:fieldset>
+				
+			</h:form>
+		
+		
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+		</ui:composition>
+		
+	</h:body>
+
+</html>

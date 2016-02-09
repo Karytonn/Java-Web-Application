@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="" library="" />
+	<title>NewTec</title>
+</h:head>
+	<h:body>
+		
+		
+		<ui:composition template="template/template.xhtml">
+		<ui:define name="center">
+		
+			<h:form id="cad_produto">
+			
+			<p:fieldset legend="Cadastro Produtos" style="margin-bottom:20px; margin-top:20px">
+				
+				<p:messages autoUpdate="true"/>
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel>Nome</p:outputLabel>
+					<p:inputText label="Campo/Nome" value="#{ProdutoMB.bean.nomeProduto}" required="true" requiredMessage="Insira o campo (Nome)"/>
+					<p:outputLabel>Quantidade</p:outputLabel>
+					<p:inputText label="Campo/Quantidade" value="#{ProdutoMB.bean.quantidade}" required="true" requiredMessage="Insira o campo (Quantidade)"/>
+					<p:outputLabel>Valor de Compra</p:outputLabel>
+					<p:inputText label="Campo/Valor de Compra" value="#{ProdutoMB.bean.valorCompra}" required="true" requiredMessage="Insira o campo (Valor de Compra)"/>
+					<p:outputLabel>Valor de Venda</p:outputLabel>
+					<p:inputText label="Campo/Valor de venda" value="#{ProdutoMB.bean.valorVenda}"  required="true" requiredMessage="Insira o campo (Valor de Venda)"/>
+					<p:outputLabel>Codigo</p:outputLabel>
+					<p:inputText label="Campo/Codigo" value="#{ProdutoMB.bean.codProduto}" required="true" requiredMessage="Insira o campo (Codigo)"/>
+				</p:panelGrid>
+				
+				<br></br>
+				
+				<p:panelGrid columns="3">
+
+					<p:commandButton value="Cadastrar" action="#{ProdutoMB.cadastrar}"
+						update="cad_produto" rendered="#{!ProdutoMB.startUpdate}" />
+
+					<p:commandButton value="Delete" action="#{ProdutoMB.delete}"
+						update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+
+					<p:commandButton value="Update" action="#{ProdutoMB.update}"
+						update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+
+					<p:commandButton value="Cancelar" action="#{ProdutoMB.init}"
+						update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+
+				</p:panelGrid>
+				
+				</p:fieldset>
+				
+				<p:fieldset legend="Itens da Lista" style="margin-bottom:20px">
+				
+				<p:dataTable var="produto" value="#{ProdutoMB.produtos}"
+					selectionMode="single" 
+					selection="#{ProdutoMB.update}"
+					rowKey="#{produto.id}">
+
+					<p:ajax event="rowSelect" listener="#{ProdutoMB.ativaUpdate}"
+						update=":cad_produto" />
+
+					<p:column headerText="Nome">#{produto.nomeProduto}</p:column>
+					<p:column headerText="Quantidade">#{produto.quantidade}</p:column>
+					<p:column headerText="Valor de Compra">#{produto.valorCompra}</p:column>
+					<p:column headerText="Valor de Venda">#{produto.valorVenda}</p:column>
+					<p:column headerText="Codigo">#{produto.codProduto}</p:column>
+				</p:dataTable>
+						
+				</p:fieldset>
+			</h:form>
+		
+		
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+		</ui:composition>
+		
+	</h:body>
+
+</html>

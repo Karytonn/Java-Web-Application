@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Kappdev</title>
+</h:head>
+<h:body>
+
+
+	<ui:composition template="template/template.xhtml">
+		<ui:define name="center">
+		
+			<h:form id="cad_produto">
+								
+				<p:fieldset legend="Cadastro Produtos" style="margin-bottom:20px; margin-top:10px; background-image: url(resources/img/fundo.png);">
+
+					<p:messages autoUpdate="true" />
+
+					<p:panelGrid columns="2" id="img">
+						<p:outputLabel>Nome</p:outputLabel>
+						<p:inputText label="Campo/Nome"
+							value="#{ProdutoMB.bean.nomeProduto}" required="true"
+							requiredMessage="Insira o campo (Nome)" />
+							
+						<p:outputLabel>Tipo</p:outputLabel>	
+						<p:selectOneListbox value="#{ProdutoMB.bean.tipo}">
+            				<f:selectItem itemLabel="Doces (1)" itemValue="1" />
+            				<f:selectItem itemLabel="Embalagens (2)" itemValue="2" />
+            				<f:selectItem itemLabel="Festa (3)" itemValue="3" />
+        				</p:selectOneListbox>
+        				
+						<p:outputLabel>Quantidade</p:outputLabel>
+						<p:inputText label="Campo/Quantidade"
+							value="#{ProdutoMB.bean.quantidade}" required="true"
+							requiredMessage="Insira o campo (Quantidade)" />
+							
+						<p:outputLabel>Valor de Compra</p:outputLabel>
+						<p:inputText label="Campo/Valor de Compra"
+							value="#{ProdutoMB.bean.valorCompra}" required="true"
+							requiredMessage="Insira o campo (Valor de Compra)" />
+							
+						<p:outputLabel>Valor de Venda</p:outputLabel>
+						<p:inputText label="Campo/Valor de venda"
+							value="#{ProdutoMB.bean.valorVenda}" required="true"
+							requiredMessage="Insira o campo (Valor de Venda)" />
+							
+						<p:outputLabel>Codigo</p:outputLabel>
+						<p:inputText label="Campo/Codigo"
+							value="#{ProdutoMB.bean.codProduto}" required="true"
+							requiredMessage="Insira o campo (Codigo)" />
+					</p:panelGrid>
+
+					<br></br>
+
+					<p:panelGrid columns="3">
+						<p:commandButton value="Cadastrar" action="#{ProdutoMB.cadastrar}"
+							update="cad_produto" rendered="#{!ProdutoMB.startUpdate}" />
+
+						<p:commandButton value="Delete" action="#{ProdutoMB.delete}"
+							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+
+						<p:commandButton value="Update" action="#{ProdutoMB.update}"
+							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+
+						<p:commandButton value="Cancelar" action="#{ProdutoMB.init}"
+							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
+					</p:panelGrid>
+
+				</p:fieldset>
+				
+				<p:fieldset legend="Itens da Lista" style="margin-bottom:20px; margin-top:20px">
+
+					<p:dataTable var="produto" value="#{ProdutoMB.produtos}" 
+						selectionMode="single" 
+						selection="#{ProdutoMB.update}"
+						rowKey="#{produto.id}"
+						rows="10"
+						paginator="true"
+						paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" 
+						widgetVar="buscatodos">
+
+						<p:ajax event="rowSelect" listener="#{ProdutoMB.ativaUpdate}"
+							update=":cad_produto" />
+
+						 <f:facet name="header">
+				            <p:outputPanel>
+				                <h:outputText value="Buscar: "/>
+				                <p:inputText id="globalFilter" onkeyup="PF('buscatodos').filter()" style="width:150px " placeholder=""/>
+				            </p:outputPanel>
+				        </f:facet>
+                         
+						<p:column headerText="Busca por Nome" style="width:30%" filterBy="#{produto.nomeProduto}" filterMatchMode="contains">
+							<p:outputLabel>#{produto.nomeProduto}</p:outputLabel>
+						</p:column>	
+						
+						<p:column headerText="Tipo" style="width:11%" filterBy="#{produto.tipo}" filterMatchMode="exact">
+							<p:outputLabel>#{produto.tipo}</p:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Quantidade" filterBy="#{produto.quantidade}" filterMatchMode="exact">
+							<p:outputLabel>#{produto.quantidade}</p:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Valor de Compra" filterBy="#{produto.valorCompra}">
+							<p:outputLabel value="#{produto.valorCompra}" style="text-align:center">
+								 <f:convertNumber currencySymbol="R$" type="currency"/>
+							</p:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Valor de Venda" filterBy="#{produto.valorVenda}">
+							<p:outputLabel value="#{produto.valorVenda}">
+								 <f:convertNumber currencySymbol="R$" type="currency"/>
+							</p:outputLabel>
+						</p:column>
+						
+						<p:column headerText="Codigo Produto" filterBy="#{produto.codProduto}" filterMatchMode="exact">
+							<p:outputLabel>#{produto.codProduto}</p:outputLabel>
+						</p:column>	
+					</p:dataTable>
+
+					<p:outputLabel value="Qtn. P. cadastrados: "/>
+            		<p:outputLabel value="#{ProdutoMB.qtn}" style="text-align:left"/>
+					
+
+				</p:fieldset>
+			</h:form>
+			
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

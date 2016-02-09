@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="" library="" />
+	<title>NewTec</title>
+</h:head>
+	<h:body>
+		
+		
+		<ui:composition template="template/template.xhtml">
+		<ui:define name="center">
+		
+			<h:form id="cad_funcionario">
+				
+				<p:fieldset legend="Cadastro Funcionario" style="margin-bottom:20px; margin-top:20px">
+				
+				<p:messages autoUpdate="true" />
+				
+				<p:panelGrid columns="2">
+					<p:outputLabel>Nome</p:outputLabel>
+					<p:inputText label="Campo/Nome" value="#{FuncionarioMB.bean.nomePessoa}" required="true" requiredMessage="Insira o campo (Nome)"/>
+					<p:outputLabel>Telefone</p:outputLabel>
+					<p:inputText label="Campo/Nome" value="#{FuncionarioMB.bean.telefone}" required="true" requiredMessage="Insira o campo (Telefone)"/>
+					<p:outputLabel>Codigo</p:outputLabel>
+					<p:inputText babel="Campo/Codigo" value="#{FuncionarioMB.bean.codFuncionario}" required="true" requiredMessage="Insira o campo (Codigo)"/>
+				</p:panelGrid>
+				
+				<br></br>
+				
+				<p:panelGrid columns="3">
+
+					<p:commandButton value="Cadastrar" action="#{FuncionarioMB.cadastrar}"
+						update="cad_funcionario" rendered="#{!FuncionarioMB.startUpdate}" />
+
+					<p:commandButton value="Delete" action="#{FuncionarioMB.delete}"
+						update="cad_funcionario" rendered="#{FuncionarioMB.startUpdate}" />
+
+					<p:commandButton value="Update" action="#{FuncionarioMB.update}"
+						update="cad_funcionario" rendered="#{FuncionarioMB.startUpdate}" />
+
+					<p:commandButton value="Cancelar" action="#{FuncionarioMB.init}"
+						update="cad_funcionario" rendered="#{FuncionarioMB.startUpdate}" />
+
+				</p:panelGrid>
+				
+				<br></br>
+				
+				<p:dataTable var="funcionario" value="#{FuncionarioMB.funcionarios}"
+					selectionMode="single" selection="#{FuncionarioMB.update}"
+					rowKey="#{funcionario.idPessoa}">
+
+					<p:ajax event="rowSelect" listener="#{FuncionarioMB.ativaUpdate}"
+						update=":cad_funcionario" />
+
+					<p:column headerText="Nome">#{funcionario.nomePessoa}</p:column>
+					<p:column headerText="Nome">#{funcionario.telefone}</p:column>
+					<p:column headerText="Codigo">#{funcionario.codFuncionario}</p:column>
+				</p:dataTable>
+				
+				</p:fieldset>
+				
+			</h:form>
+		
+		
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+		</ui:composition>
+		
+	</h:body>
+
+</html>

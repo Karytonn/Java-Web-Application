@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<body>
+	<ui:composition>
+
+
+		<div id="topo"></div>
+			
+		<p:menubar autoDisplay="false">
+		
+			<p:menuitem value="HOME" url="index.jsf" icon="ui-icon-home" />
+			
+			<p:submenu label="PRODUTOS" icon="ui-icon-document" style="">
+				<p:menuitem value="Cadastro Produtos" url="cad_select_list_produto.jsf" icon="ui-icon-contact" />
+				<p:menuitem value="Lista Produtos" url="listaprodutos.jsf" icon="ui-icon-contact" />
+			</p:submenu>
+		
+			<p:submenu label="FORNECEDORES" icon="ui-icon-pencil">
+				<p:menuitem value="Cadastro Fornecedores" url="" />
+				<p:menuitem value="Tipo Fornecedor" url="" />
+			</p:submenu>
+			
+			<p:submenu label="CLIENTES" icon="ui-icon-contact">
+				<p:menuitem value="Cadastro de Clientes" url="cadastrocliente.jsf" icon="ui-icon-contact" />
+			</p:submenu>
+			
+			<p:submenu label="CONTROLE DE ACESSO" icon="ui-icon-gear">
+				<p:menuitem value="Cadastro de Usuarios" url="" icon="ui-icon-contact" />
+				<p:menuitem value="Cadastro Funcionario" url="cadastrofuncionario.jsf" icon="ui-icon-contact" />
+			</p:submenu>
+			
+			
+		</p:menubar>
+
+	</ui:composition>
+</body>
+</html>
+
+
