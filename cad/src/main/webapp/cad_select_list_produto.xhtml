@@ -18,7 +18,7 @@
 		
 			<h:form id="cad_produto">
 								
-				<p:fieldset legend="Cadastro Produtos" style="margin-bottom:20px; margin-top:10px; background-image: url(resources/img/fundo.png);">
+				<p:fieldset legend="Cadastro Produtos" style="margin-bottom:5px; margin-top:10px;">
 
 					<p:messages autoUpdate="true" />
 
@@ -59,22 +59,22 @@
 					<br></br>
 
 					<p:panelGrid columns="3">
-						<p:commandButton value="Cadastrar" action="#{ProdutoMB.cadastrar}"
+						<p:commandButton value="Cadastrar" style="color: blue;" action="#{ProdutoMB.cadastrar}"
 							update="cad_produto" rendered="#{!ProdutoMB.startUpdate}" />
 
-						<p:commandButton value="Delete" action="#{ProdutoMB.delete}"
+						<p:commandButton value="Delete" style="color: blue;" action="#{ProdutoMB.delete}"
 							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
 
-						<p:commandButton value="Update" action="#{ProdutoMB.update}"
+						<p:commandButton value="Update" style="color: blue;" action="#{ProdutoMB.update}"
 							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
 
-						<p:commandButton value="Cancelar" action="#{ProdutoMB.init}"
+						<p:commandButton value="Cancelar" style="color: blue;" action="#{ProdutoMB.init}"
 							update="cad_produto" rendered="#{ProdutoMB.startUpdate}" />
 					</p:panelGrid>
 
 				</p:fieldset>
 				
-				<p:fieldset legend="Itens da Lista" style="margin-bottom:20px; margin-top:20px">
+				<p:fieldset legend="Itens da Lista">
 
 					<p:dataTable var="produto" value="#{ProdutoMB.produtos}" 
 						selectionMode="single" 
@@ -134,7 +134,7 @@
 			</h:form>
 			
 		</ui:define>
-		<ui:define name="footer"></ui:define>
+		
 	</ui:composition>
 
 </h:body>
